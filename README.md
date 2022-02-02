@@ -20,6 +20,8 @@
 
 **Documentation**: [https://art049.github.io/odmantic/](https://art049.github.io/odmantic/)
 
+> This version has been updated to support motor 2.5+ (and therefore python 3.9 and mongo v5.)
+
 ---
 
 Asynchronous ODM (Object Document Mapper) for <a href="https://www.mongodb.com/"
