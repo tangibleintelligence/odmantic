@@ -13,4 +13,4 @@ try:
 except ModuleNotFoundError:
     import importlib_metadata  # type: ignore
 
-__version__ = importlib_metadata.version(__name__)
+__version__ = importlib_metadata.version('odmanticti')
