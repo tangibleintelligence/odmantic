@@ -482,6 +482,10 @@ class _BaseODMModel(pydantic.BaseModel, metaclass=ABCMeta):
         super().__init__(**data)
         object.__setattr__(self, "__fields_modified__", set(self.__odm_fields__.keys()))
 
+    def __setstate__(self, state: "DictAny") -> None:
+        super().__setstate__(state)
+        object.__setattr__(self, "__fields_modified__", set(self.__odm_fields__.keys()))
+
     @classmethod
     def validate(cls: Type[BaseT], value: Any) -> BaseT:
         if isinstance(value, cls):
