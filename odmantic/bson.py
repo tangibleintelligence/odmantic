@@ -1,6 +1,6 @@
 import decimal
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, Pattern, cast
 
 import bson
@@ -142,8 +142,9 @@ class _datetime(datetime):
             d = parse_datetime(v)
         # MongoDB does not store timezone info
         # https://docs.python.org/3/library/datetime.html#determining-if-an-object-is-aware-or-naive
+        # We use UTC timezone throughout, so just convert to that and drop the zone info
         if d.tzinfo is not None and d.tzinfo.utcoffset(d) is not None:
-            raise ValueError("datetime objects must be naive (no timezone info)")
+            d = d.astimezone(timezone.utc).replace(tzinfo=None)
         # Truncate microseconds to milliseconds to comply with Mongo behavior
         microsecs = d.microsecond - d.microsecond % 1000
         return d.replace(microsecond=microsecs)
